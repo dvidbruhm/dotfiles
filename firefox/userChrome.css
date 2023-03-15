@@ -1,0 +1,19 @@
+/* Reposition the container color bar to the sides of the tab */
+
+#tabbrowser-tabs .tab-context-line {
+    display: none;
+}
+
+#tabbrowser-tabs .tab-background {
+    border-bottom: solid 3px #6272a4 !important;
+    /*border-top: solid 4px var(--identity-icon-color, #ccc) !important;
+    border-right: solid 2px var(--identity-icon-color, #ccc) !important;
+    border-left: solid 2px var(--identity-icon-color, #ccc) !important;*/
+    /*background-color: #44475a !important;*/
+    transition: all .15s ease-in-out !important;
+}
+
+#tabbrowser-tabs .tab-background[selected="true"] {
+    /*background-color: var(--identity-tab-color) !important;*/
+    border: solid 3px #50fa7b !important;
+}

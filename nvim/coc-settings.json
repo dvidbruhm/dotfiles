@@ -1,0 +1,23 @@
+{
+  "languageserver": {
+    "ccls": {
+      "command": "ccls",
+      "filetypes": ["c", "cpp", "cuda", "objc", "objcpp"],
+      "rootPatterns": [".ccls",".ccls-root", "compile_commands.json", ".git"],
+      "initializationOptions": {
+         "cache": {
+           "directory": ".ccls-cache"
+         }
+       }
+    }
+  },
+  "python.jediEnabled": true,
+  "python.linting.flake8Enabled": false,
+  "python.linting.flake8Args": ["--extend-ignore=E501,E402"],
+  "python.linting.enabled": true,
+  "python.linting.mypyEnabled": true,
+  "diagnostic.checkCurrentLine": true,
+  "coc.preferences.jumpCommand": "tabe",
+  "coc.preferences.formatOnSaveFiletypes": ["rust"],
+  "diagnostic.level": "information",
+}
