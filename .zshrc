@@ -14,6 +14,8 @@ plugins=(history-substring-search zsh-autosuggestions zsh-syntax-highlighting)
 # Reassign ctrl-backspace to delete a word
 bindkey "^h" backward-kill-word
 
+alias rm='echo "Find another command to remove file that has a trash (e.g. trash-cli)."; false'
+
 source $ZSH/oh-my-zsh.sh
 
 autoload -Uz compinit
