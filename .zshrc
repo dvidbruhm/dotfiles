@@ -6,6 +6,12 @@ export PATH=$HOME/bin:/usr/local/bin:$PATH
 # Add poetry path
 export PATH=/home/david/Applications/poetry/bin:$PATH
 
+# Add azure-cli to path
+export PATH=/home/david/Applications/azure-functions-cli/:$PATH
+
+# Add flutter path
+export PATH=/home/david/Applications/flutter/bin/:$PATH
+
 # Add local bin path
 export PATH=/home/david/.local/bin:$PATH
 
@@ -38,3 +44,9 @@ eval "$(pyenv init -)"
 
 # Fig post block. Keep at the bottom of this file.
 [[ -f "$HOME/.fig/shell/zshrc.post.zsh" ]] && builtin source "$HOME/.fig/shell/zshrc.post.zsh"
+# Source the Lazyman shell initialization for aliases and nvims selector
+# shellcheck source=.config/nvim-Lazyman/.lazymanrc
+[ -f ~/.config/nvim-Lazyman/.lazymanrc ] && source ~/.config/nvim-Lazyman/.lazymanrc
+# Source the Lazyman .nvimsbind for nvims key binding
+# shellcheck source=.config/nvim-Lazyman/.nvimsbind
+[ -f ~/.config/nvim-Lazyman/.nvimsbind ] && source ~/.config/nvim-Lazyman/.nvimsbind
