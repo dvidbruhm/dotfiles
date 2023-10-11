@@ -308,7 +308,8 @@ require('lazy').setup({
           TelescopePreviewBorder = { bg = theme.ui.bg_dim, fg = theme.ui.bg_dim },
           CursorLine = { bg = "#232330" },
           MsgArea = { bg = "none" },
-          BufferLineFill = { bg = theme.ui.bg }
+          MiniTablineCurrent = { bg = theme.ui.bg_p1 },
+          MiniTablineHidden = { bg = theme.ui.bg },
         }
       end,
     },
@@ -414,6 +415,42 @@ require('lazy').setup({
       }
     end,
   },
+  {
+    'echasnovski/mini.cursorword',
+    version = false,
+    config = function()
+      require('mini.cursorword').setup()
+    end
+  },
+  {
+    'echasnovski/mini.tabline',
+    version = false,
+    dependencies = { 'nvim-tree/nvim-web-devicons' },
+    opts = {
+      show_icons = true
+    },
+    config = function(_, opts)
+      require("mini.tabline").setup(opts)
+    end
+  },
+  {
+    'echasnovski/mini.bufremove',
+    version = false,
+    config = function(self, opts)
+      require("mini.bufremove").setup()
+      require("which-key").register({
+        ["<leader>bd"] = { function() MiniBufremove.delete() end, "[B]uffer [d]elete" }
+      })
+    end
+  },
+
+  {
+    'echasnovski/mini.nvim',
+    version = false,
+    config = function(_, opts)
+      require("mini.starter").setup()
+    end
+  },
 
   -- Comment visual regions/lines
   {
@@ -470,10 +507,20 @@ require('lazy').setup({
       vim.keymap.set('n', '<leader>:', "<cmd>Telescope command_history<cr>", { desc = "Command history" })
       vim.keymap.set('n', '<leader>/', function()
         -- You can pass additional configuration to telescope to change theme, layout, etc.
-        require('telescope.builtin').current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
+        require('telescope.builtin').current_buffer_fuzzy_find(require('telescope.themes').get_dropdown({
           winblend = 10,
           previewer = false,
-        })
+          layout_config = {
+            height = 15,
+            width = 150,
+          },
+          border = true,
+          borderchars = {
+            prompt = { " ", " ", " ", " ", " ", " ", " ", " " },
+            results = { " " },
+            preview = { "─", "│", "─", "│", "╭", "╮", "╯", "╰" },
+          },
+        }))
       end, { desc = '[/] Fuzzily search in current buffer' })
 
       vim.keymap.set('n', '<leader>fr', require('telescope.builtin').oldfiles,
@@ -583,8 +630,8 @@ require('lazy').setup({
       vim.keymap.set('n', '<F2>', dap.step_into, { desc = 'Debug: Step Into' })
       vim.keymap.set('n', '<F3>', dap.step_over, { desc = 'Debug: Step Over' })
       vim.keymap.set('n', '<F4>', dap.step_out, { desc = 'Debug: Step Out' })
-      vim.keymap.set('n', '<leader>bb', dap.toggle_breakpoint, { desc = 'Debug: Toggle Breakpoint' })
-      vim.keymap.set('n', '<leader>bB', function()
+      vim.keymap.set('n', '<leader>db', dap.toggle_breakpoint, { desc = 'Debug: Toggle Breakpoint' })
+      vim.keymap.set('n', '<leader>dB', function()
         dap.set_breakpoint(vim.fn.input 'Breakpoint condition: ')
       end, { desc = 'Debug: Set Breakpoint' })
 
@@ -890,7 +937,8 @@ end
 
 -- document existing key chains
 require('which-key').register {
-  ['<leader>b'] = { name = 'De[b]ug', _ = 'which_key_ignore' },
+  ['<leader>b'] = { name = '[B]uffers', _ = 'which_key_ignore' },
+  ['<leader>d'] = { name = '[D]ebug', _ = 'which_key_ignore' },
   ['<leader>c'] = { name = '[C]ode', _ = 'which_key_ignore' },
   ['<leader>g'] = { name = '[G]it', _ = 'which_key_ignore' },
   ['<leader>h'] = { name = 'More git', _ = 'which_key_ignore' },
