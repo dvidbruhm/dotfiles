@@ -1,0 +1,10 @@
+new_tab Astro
+cd ~/Projects/astro-tutorial/
+launch zsh
+
+new_tab Astro server
+cd ~/Projects/astro-tutorial/
+launch npm run dev
+
+new_tab General
+launch zsh

@@ -28,12 +28,21 @@ vim.opt.rtp:prepend(lazypath)
 require('lazy').setup({
   -- NOTE: First, some plugins that don't require any configuration
 
-  -- Git related plugins
-  'tpope/vim-fugitive',
-  'tpope/vim-rhubarb',
 
   -- Detect tabstop and shiftwidth automatically
   'tpope/vim-sleuth',
+
+  -- Git related plugins
+  {
+    "NeogitOrg/neogit",
+    dependencies = {
+      "nvim-lua/plenary.nvim",         -- required
+      "nvim-telescope/telescope.nvim", -- optional
+      "sindrets/diffview.nvim",        -- optional
+      "ibhagwan/fzf-lua",              -- optional
+    },
+    config = true
+  },
   {
     "windwp/nvim-autopairs",
     -- Optional dependency
@@ -66,7 +75,7 @@ require('lazy').setup({
       require("null-ls").setup({
         sources = {
           null_ls.builtins.formatting.black.with({
-            extra_args = { "--line-length", "160" },
+            extra_args = { "--line-length", "400" },
           })
         }
       })
@@ -83,7 +92,7 @@ require('lazy').setup({
 
       -- Useful status updates for LSP
       -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
-      { 'j-hui/fidget.nvim', tag = 'legacy', opts = {} },
+      { 'j-hui/fidget.nvim', tag = 'legacy', event = "LspAttach", opts = { text = { spinner = "dots" } } },
 
       -- Additional lua configuration, makes nvim stuff amazing!
       'folke/neodev.nvim',
@@ -308,8 +317,10 @@ require('lazy').setup({
           TelescopePreviewBorder = { bg = theme.ui.bg_dim, fg = theme.ui.bg_dim },
           CursorLine = { bg = "#232330" },
           MsgArea = { bg = "none" },
-          MiniTablineCurrent = { bg = theme.ui.bg_p1 },
+          MiniTablineCurrent = { reverse = true },
           MiniTablineHidden = { bg = theme.ui.bg },
+          MiniTablineModifiedCurrent = { reverse = true, fg = "#FF9E3B" },
+          MiniTablineModifiedHidden = { reverse = true, fg = "#C34043" },
         }
       end,
     },
@@ -439,7 +450,8 @@ require('lazy').setup({
     config = function(self, opts)
       require("mini.bufremove").setup()
       require("which-key").register({
-        ["<leader>bd"] = { function() MiniBufremove.delete() end, "[B]uffer [d]elete" }
+        ["<leader>bd"] = { function() MiniBufremove.delete() end, "[B]uffer [d]elete" },
+        ["<leader>bD"] = { function() MiniBufremove.delete(0, true) end, "[B]uffer [D]elete force" }
       })
     end
   },
@@ -967,6 +979,8 @@ local servers = {
   -- gopls = {},
   pyright = {},
   rust_analyzer = {},
+  omnisharp = { filetypes = { "cs" } },
+  astro = {},
   -- tsserver = {},
   -- html = { filetypes = { 'html', 'twig', 'hbs'} },
 

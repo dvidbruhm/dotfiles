@@ -1,0 +1,18 @@
+new_tab Python
+cd ~/Projects/axceta/ultrasound
+launch --env RUN="clear" poetry shell -q
+
+new_tab API experiments
+cd ~/Projects/experiments-api
+launch --env RUN="conda activate experiments-api;clear" zsh
+
+new_tab C#
+cd ~/Projects/demeter-v2
+launch --env RUN="clear" zsh
+
+new_tab ExplorAI
+cd ~/Projects/axceta/ultrasound
+launch --env RUN="cd ~/Projects/axceta/ExampleExplorAI;clear" poetry shell -q
+
+new_tab General
+launch --env RUN="clear" zsh
