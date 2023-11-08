@@ -1,4 +1,4 @@
--- Set <space> as the leader key
+-- Set <space> as the leader key/q
 -- See `:help mapleader`
 --  NOTE: Must happen before plugins are required (otherwise wrong leader will be used)
 vim.g.mapleader = ' '
@@ -538,8 +538,12 @@ require('lazy').setup({
       vim.keymap.set('n', '<leader>fr', require('telescope.builtin').oldfiles,
         { desc = '[F]ind [r]ecently opened files' })
       vim.keymap.set('n', '<leader>fb', require('telescope.builtin').buffers, { desc = '[F]ind existing [b]uffers' })
-      vim.keymap.set('n', '<leader>ff', require('telescope.builtin').git_files, { desc = '[Find] [F]iles' })
-      vim.keymap.set('n', '<leader>fF', require('telescope.builtin').find_files, { desc = '[F]ind Git [F]iles' })
+      vim.keymap.set('n', '<leader>ff', function() require('telescope.builtin').find_files({ no_ignore = true }) end,
+        { desc = '[F]ind [f]iles' })
+      vim.keymap.set('n', '<leader>fF',
+        function() require('telescope.builtin').find_files({ cwd = require('telescope.utils').buffer_dir() }) end,
+        { desc = '[F]ind Current dir [F]iles' })
+      vim.keymap.set('n', '<leader>fg', require('telescope.builtin').git_files, { desc = '[F]ind [g]it files' })
       vim.keymap.set('n', '<leader>fh', require('telescope.builtin').help_tags, { desc = '[S]earch [H]elp' })
       vim.keymap.set('n', '<leader>fW', require('telescope.builtin').grep_string, { desc = '[F]ind current [W]ord' })
       vim.keymap.set('n', '<leader>fw', require('telescope.builtin').live_grep, { desc = '[F]ind by Grep' })

@@ -1,10 +1,10 @@
+new_tab General
+launch --env RUN="clear" zsh
+
 new_tab Astro
 cd ~/Projects/astro-tutorial/
-launch zsh
+launch --env RUN="clear" zsh
 
 new_tab Astro server
 cd ~/Projects/astro-tutorial/
-launch npm run dev
-
-new_tab General
-launch zsh
+launch --env RUN="clear;npm run dev" zsh
