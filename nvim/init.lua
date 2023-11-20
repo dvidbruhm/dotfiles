@@ -285,9 +285,20 @@ require('lazy').setup({
       },
     },
   },
+  {
+    "catppuccin/nvim",
+    enabled = false,
+    name = "catppuccin",
+    priority = 1000,
+    config = function(_, opts)
+      require("catppuccin").setup(opts)
+      vim.cmd.colorscheme 'catppuccin-latte'
+    end,
 
+  },
   {
     'rebelot/kanagawa.nvim',
+    enabled = true,
     priority = 1000,
     lazy = false,
     opts = {
@@ -333,21 +344,23 @@ require('lazy').setup({
   {
     "nvim-lualine/lualine.nvim",
     opts = function()
-      local wave_colors = require("kanagawa.colors").setup({ theme = "wave" })
-
       local custom_theme = require("lualine.themes.auto")
-      custom_theme.normal.b.bg = wave_colors.theme.ui.bg
-      custom_theme.insert.b.bg = wave_colors.theme.ui.bg
-      custom_theme.visual.b.bg = wave_colors.theme.ui.bg
-      custom_theme.replace.b.bg = wave_colors.theme.ui.bg
-      custom_theme.command.b.bg = wave_colors.theme.ui.bg
-      custom_theme.inactive.b.bg = wave_colors.theme.ui.bg
-      custom_theme.normal.c.bg = wave_colors.theme.ui.bg
-      -- custom_theme.insert.c.bg = wave_colors.theme.ui.bg
-      -- custom_theme.visual.c.bg = wave_colors.theme.ui.bg
-      -- custom_theme.replace.c.bg = wave_colors.theme.ui.bg
-      -- custom_theme.command.c.bg = wave_colors.theme.ui.bg
-      -- custom_theme.inactive.c.bg = wave_colors.theme.ui.bg
+      if (vim.g.colors_name == "kanagawa") then
+        local wave_colors = require("kanagawa.colors").setup({ theme = "wave" })
+
+        custom_theme.normal.b.bg = wave_colors.theme.ui.bg
+        custom_theme.insert.b.bg = wave_colors.theme.ui.bg
+        custom_theme.visual.b.bg = wave_colors.theme.ui.bg
+        custom_theme.replace.b.bg = wave_colors.theme.ui.bg
+        custom_theme.command.b.bg = wave_colors.theme.ui.bg
+        custom_theme.inactive.b.bg = wave_colors.theme.ui.bg
+        custom_theme.normal.c.bg = wave_colors.theme.ui.bg
+        -- custom_theme.insert.c.bg = wave_colors.theme.ui.bg
+        -- custom_theme.visual.c.bg = wave_colors.theme.ui.bg
+        -- custom_theme.replace.c.bg = wave_colors.theme.ui.bg
+        -- custom_theme.command.c.bg = wave_colors.theme.ui.bg
+        -- custom_theme.inactive.c.bg = wave_colors.theme.ui.bg
+      end
 
       return {
         options = {
