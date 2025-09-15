@@ -1,69 +1,33 @@
-# Fig pre block. Keep at the top of this file.
-[[ -f "$HOME/.fig/shell/zshrc.pre.zsh" ]] && builtin source "$HOME/.fig/shell/zshrc.pre.zsh"
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
 # If you come from bash you might have to change your $PATH.
-export PATH=$HOME/bin:/usr/local/bin:$PATH
-
-# Add poetry path
-export PATH=/home/david/Applications/poetry/bin:$PATH
-
-# Add azure-cli to path
-export PATH=/home/david/Applications/azure-functions-cli/:$PATH
-
-# Add flutter path
-export PATH=/home/david/Applications/flutter/bin/:$PATH
-
-# Add local bin path
-export PATH=/home/david/.local/bin:$PATH
-
-# Path to your oh-my-zsh installation.
-export ZSH="/home/david/.oh-my-zsh"
-
-#Change time command format
-TIMEFMT=$'\nreal\t%E\nuser\t%U\nsys\t%S'
-
-ZSH_THEME="robbyrussell"
-
-plugins=(history-substring-search zsh-autosuggestions zsh-syntax-highlighting poetry)
-
-# Reassign ctrl-backspace to delete a word
-bindkey "^h" backward-kill-word
-
-alias rm='echo "Find another command to remove file that has a trash (e.g. trash-cli)."; false'
-alias todo='rusty-todo --todo-dir /home/david/Projects/axceta/todo/'
-todo ls
-
-alias work='kitty --session ~/.config/kitty/work.session --detach; exit'
-alias perso='kitty --session ~/.config/kitty/personal.session --detach; exit'
+# export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
+setopt no_flow_control 
+# Path to your Oh My Zsh installation.
+export ZSH="$HOME/.oh-my-zsh"
+ZSH_THEME="powerlevel10k/powerlevel10k"
+plugins=(git zsh-syntax-highlighting zsh-history-substring-search zsh-autosuggestions)
 
 source $ZSH/oh-my-zsh.sh
-setopt completealiases
+# Preferred editor for local and remote sessions
+# if [[ -n $SSH_CONNECTION ]]; then
+#   export EDITOR='vim'
+# else
+#   export EDITOR='nvim'
+# fi
+#
+# alias ohmyzsh="mate ~/.oh-my-zsh"
 
+. /opt/informix/informix-server.env
 
-autoload -Uz compinit
-zstyle ':completion:*' menu select
-fpath+=~/.zfunc
-export PYENV_ROOT="$HOME/.pyenv"
-command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init -)"
-
-
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
-# >>> conda initialize >>>
-# !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/home/david/Applications/miniconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
-if [ $? -eq 0 ]; then
-    eval "$__conda_setup"
-else
-    if [ -f "/home/david/Applications/miniconda3/etc/profile.d/conda.sh" ]; then
-        . "/home/david/Applications/miniconda3/etc/profile.d/conda.sh"
-    else
-        export PATH="/home/david/Applications/miniconda3/bin:$PATH"
-    fi
-fi
-unset __conda_setup
-# <<< conda initialize <<<
-
-eval "$RUN"
+bindkey '^[[A' history-substring-search-up
+bindkey '^[OA' history-substring-search-up
+bindkey '^[[B' history-substring-search-down
+bindkey '^[OB' history-substring-search-down
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
