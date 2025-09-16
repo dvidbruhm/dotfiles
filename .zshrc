@@ -21,7 +21,7 @@ source $ZSH/oh-my-zsh.sh
 #   export EDITOR='nvim'
 # fi
 #
-# alias ohmyzsh="mate ~/.oh-my-zsh"
+alias ls="exa --icons"
 
 . /opt/informix/informix-server.env
 
@@ -29,5 +29,8 @@ bindkey '^[[A' history-substring-search-up
 bindkey '^[OA' history-substring-search-up
 bindkey '^[[B' history-substring-search-down
 bindkey '^[OB' history-substring-search-down
+
+bindkey '^H' backward-delete-word
+
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
